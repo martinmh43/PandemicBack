@@ -1,0 +1,28 @@
+<?php
+
+// Configurar conexion
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "prueba1";
+
+// Crear conexion
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+	echo "Error manin";
+}
+
+$selectAlumno = "SELECT * FROM alumnos";
+
+$resultado = $conn->query($selectAlumno);
+
+while ($row = $resultado->fetch_assoc()) {
+	echo $row['id']." ".$row['nombre']." ".$row['correo']."<br>";
+}
+
+echo "Hicimos el select";
+
+?>

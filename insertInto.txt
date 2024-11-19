@@ -1,0 +1,28 @@
+<?php
+
+// Configurar conexion
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "prueba1";
+
+// Crear conexion
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+	echo "Error manin";
+}
+
+$nombre = "juanpa";
+$correo = "juanpa@putero.com";
+
+$insertarAlumno = "INSERT INTO alumnos (nombre, correo) VALUES ('$nombre', '$correo')";
+
+$conn->query($insertarAlumno);
+
+echo "Funciono wachin, se la metimos a " . $nombre;
+
+?>
+

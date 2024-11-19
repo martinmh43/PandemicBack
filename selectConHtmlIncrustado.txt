@@ -1,0 +1,76 @@
+<?php
+
+// Configurar conexion
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "prueba1";
+
+// Crear conexion
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+	echo "Error manin";
+}
+
+$selectAlumno = "SELECT * FROM alumnos";
+
+$resultado = $conn->query($selectAlumno);
+
+?>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+
+		table {
+			width: 80%;
+			margin: 20px;
+			border-collapse: collapse;
+		}
+
+		th, td {
+			border: 1px solid #eee;
+		}
+
+	</style>
+	<title>MostrarAlumnos</title>
+</head>
+
+<body>
+
+	<h1>Mostrar alumnos</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>nombre</th>
+				<th>correo</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			while ($row = $resultado->fetch_assoc()) {
+				echo "<tr>
+						<td>" . $row['id'] . "</td>
+						<td>" . $row['nombre'] . "</td>
+						<td>" . $row['correo'] . "</td>
+					</tr>";
+			}
+			?>
+		</tbody>
+	</table>
+
+</body>
+
+</html>
