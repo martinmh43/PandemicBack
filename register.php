@@ -5,6 +5,7 @@
 $nombre = $_POST['nombre'];
 $password = $_POST['password'];
 
+$hpass = password_hash($password, PASSWORD_DEFAULT);
 
 // Configurar conexion
 
@@ -15,13 +16,13 @@ $dbname = "pandemic";
 
 // Crear conexion
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $hpass, $dbname);
 
 if ($conn->connect_error) {
 	echo "No se logro registrar al usuario".$nombre;
 }
 
-$insertarAlumno = "INSERT INTO usuarios (nombre, contraseña, foto, partida) VALUES ('$nombre', '$password', null, null)";
+$insertarAlumno = "INSERT INTO usuarios (nombre, contraseña, foto, partida) VALUES ('$nombre', '$hpass', null, null)";
 
 $resultado = $conn->query($insertarAlumno);
 
