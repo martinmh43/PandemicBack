@@ -1,9 +1,12 @@
 <?php
 
+header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Headers:*');
+header('Content-Type: aplication/json');
 // Recoger datos
+$json = file_get_contents('php://input');
 
-$nombre = $_POST['nombre'];
-$password = $_POST['password'];
+$usuario = json_decode($json);
 
 $hpass = password_hash($password, PASSWORD_DEFAULT);
 
@@ -22,7 +25,7 @@ if ($conn->connect_error) {
 	echo "No se logro registrar al usuario".$nombre;
 }
 
-$insertarAlumno = "INSERT INTO usuarios (nombre, contraseña, foto, partida) VALUES ('$nombre', '$hpass', null, null)";
+$insertarUsuario = "INSERT INTO usuarios (nombre, password) VALUES ('$usuario -> nombre', '$usuario ->password')";
 
 $resultado = $conn->query($insertarAlumno);
 
