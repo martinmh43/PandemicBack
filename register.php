@@ -3,12 +3,12 @@
 header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Headers:*');
 header('Content-Type: aplication/json');
+
 // Recoger datos
 $json = file_get_contents('php://input');
 
 $usuario = json_decode($json);
 
-$hpass = password_hash($password, PASSWORD_DEFAULT);
 
 // Configurar conexion
 
@@ -19,16 +19,16 @@ $dbname = "pandemic";
 
 // Crear conexion
 
-$conn = new mysqli($servername, $username, $hpass, $dbname);
+$conn = new mysqli($servername, $username, $password, $mail,$dbname);
 
 if ($conn->connect_error) {
-	echo "No se logro registrar al usuario".$nombre;
+	echo "No se logro registrar al usuario";
 }
 
-$insertarUsuario = "INSERT INTO usuarios (nombre, password) VALUES ('$usuario -> nombre', '$usuario ->password')";
+$insertarUsuario = "INSERT INTO usuarios (nombre, password, mail) VALUES ('$usuario -> nombre', '$usuario ->password', '$usuario -> email')";
 
-$resultado = $conn->query($insertarAlumno);
+$conn->query($insertarAlumno);
 
-echo "Se inserto correctamente al usuario ".$nombre;
+echo "Se inserto correctamente al usuario ".$usuario ->nombre;
 
 ?>
