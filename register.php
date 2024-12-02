@@ -1,11 +1,14 @@
 <?php
 
+header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Headers:*');
+header('Content-Type: aplication/json');
+
 // Recoger datos
+$json = file_get_contents('php://input');
 
-$nombre = $_POST['nombre'];
-$password = $_POST['password'];
+$usuario = json_decode($json);
 
-$hpass = password_hash($password, PASSWORD_DEFAULT);
 
 // Configurar conexion
 
