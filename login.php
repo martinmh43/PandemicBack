@@ -28,3 +28,5 @@ if ($nombre && password_verify($password, $nombre['password'])) {
 }
 
 echo "Se inserto correctamente al usuario " . $nombre;
+
+?>

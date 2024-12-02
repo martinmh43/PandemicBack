@@ -16,16 +16,23 @@ $dbname = "pandemic";
 
 // Crear conexion
 
-$conn = new mysqli($servername, $username, $hpass, $dbname);
+$conn = new mysqli($servername, $username, "", $dbname);
 
 if ($conn->connect_error) {
-	echo "No se logro registrar al usuario".$nombre;
+    die("Conexión fallida: " . $conn->connect_error);
 }
 
-$insertarAlumno = "INSERT INTO usuarios (nombre, contraseña, foto, partida) VALUES ('$nombre', '$hpass', null, null)";
 
-$resultado = $conn->query($insertarAlumno);
+$insertarAlumno = "INSERT INTO usuarios (nombre, contraseña, foto, email) VALUES ('$nombre', '$hpass', null, null)";
 
-echo "Se inserto correctamente al usuario ".$nombre;
+
+if ($conn->query($insertarAlumno) === TRUE) {
+    echo "Se insertó correctamente al usuario " . $nombre;
+} else {
+    echo "Error al insertar al usuario: " . $conn->error;
+}
+
+
+$conn -> close();
 
 ?>
