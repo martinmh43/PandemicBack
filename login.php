@@ -5,28 +5,35 @@
 $nombre = $_POST['nombre'];
 $password = $_POST['password'];
 
-
 // Configurar conexion
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$dbpass = "";
 $dbname = "pandemic";
 
-// Crear conexion
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $dbpass, $dbname);
 
 if ($conn->connect_error) {
-    echo "No se logro registrar al usuario" . $nombre;
+    die("Conexión fallida: " . $conn->connect_error);
 }
 
-if ($nombre && password_verify($password, $nombre['password'])) {
-    echo "Inicio de sesión exitoso.";
+$sql = "SELECT * FROM usuarios WHERE nombre = '$nombre'";
+$result = $conn->query($sql);
+
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    
+    if (password_verify($password, $row['contraseña'])) {
+        echo "Inicio de sesión exitoso.";
+    } else {
+        echo "Contraseña incorrecta.";
+    }
 } else {
-    echo "Nombre de usuario o contraseña incorrectos.";
+    echo "Nombre de usuario no encontrado.";
 }
 
-echo "Se inserto correctamente al usuario " . $nombre;
+$conn->close();
 
 ?>

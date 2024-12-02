@@ -1,33 +1,22 @@
 <?php
 
-header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Headers:*');
-header('Content-Type: aplication/json');
-
-// Recoger datos
-$json = file_get_contents('php://input');
-
-$usuario = json_decode($json);
+$nombre = $_POST['nombre'];
+$password = $_POST['password'];
 
 
-// Configurar conexion
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$dbpass = "";
 $dbname = "pandemic";
 
-// Crear conexion
-
-$conn = new mysqli($servername, $username, "", $dbname);
+$conn = new mysqli($servername, $username, $dbpass, $dbname);
 
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-
-$insertarAlumno = "INSERT INTO usuarios (nombre, contraseña, foto, email) VALUES ('$nombre', '$hpass', null, null)";
-
+$insertarAlumno = "INSERT INTO usuarios (nombre, contraseña, foto, email) VALUES ('$nombre', '$password', null, null)";
 
 if ($conn->query($insertarAlumno) === TRUE) {
     echo "Se insertó correctamente al usuario " . $nombre;
