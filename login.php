@@ -20,16 +20,16 @@ if ($conn->connect_error) {
 
 $sql = "SELECT * FROM usuarios WHERE nombre = '$nombre'";
 $result = $conn->query($sql);
-
+$row = $result->fetch_assoc();
 
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    
-    if (password_verify($password, $row['contraseña'])) {
-        echo "Inicio de sesión exitoso.";
+
+    if ($row['contraseña'] == $password) {
+        echo "Sesion iniciada correctamente";
     } else {
         echo "Contraseña incorrecta.";
     }
+
 } else {
     echo "Nombre de usuario no encontrado.";
 }
